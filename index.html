@@ -4,161 +4,106 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Diptarka Mandal</title>
-<meta name="description" content="Diptarka Mandal, PhD scholar in Data Science at IIT Guwahati. Medical imaging, document layout analysis, deep learning.">
+<meta name="description" content="Diptarka Mandal, PhD scholar in Data Science at IIT Guwahati. Multimodal reasoning, multimodal bias, medical imaging.">
 <meta name="theme-color" content="#0b0b0c">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0c'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2340e0b0'/%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #fafaf8;
-    --fg: #141414;
-    --muted: #6b6b66;
-    --line: #e4e4de;
-    --card: #ffffff;
-    --accent: #0a8f6a;
-    --accent-soft: rgba(10,143,106,.10);
-    --dot: #cfcfc8;
+    --bg: #fafaf8; --fg: #141414; --muted: #6b6b66; --line: #e4e4de; --card: #ffffff;
+    --accent: #0a8f6a; --accent-soft: rgba(10,143,106,.10); --dot: #d6d6cf;
+    --c1: #0a8f6a; --c2: #d9822b; --c3: #6a5acd;
     --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
     --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
   :root[data-theme="dark"] {
-    --bg: #0b0b0c;
-    --fg: #ededea;
-    --muted: #8d8d87;
-    --line: #232325;
-    --card: #131315;
-    --accent: #40e0b0;
-    --accent-soft: rgba(64,224,176,.10);
-    --dot: #2c2c2f;
+    --bg: #0b0b0c; --fg: #ededea; --muted: #8d8d87; --line: #232325; --card: #131315;
+    --accent: #40e0b0; --accent-soft: rgba(64,224,176,.10); --dot: #26262a;
+    --c1: #40e0b0; --c2: #ffb45c; --c3: #9a8cff;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg);
-    font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased;
-  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration-color: var(--line); text-underline-offset: 3px; }
   a:hover { text-decoration-color: var(--accent); }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  #bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  main, footer { position: relative; z-index: 1; }
 
   /* nav */
-  header.nav {
-    position: sticky; top: 0; z-index: 20;
-    backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 82%, transparent);
-    border-bottom: 1px solid var(--line);
-  }
+  header.nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 85%, transparent); border-bottom: 1px solid var(--line); }
   .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
   .brand { font-family: var(--mono); font-size: 13px; text-decoration: none; letter-spacing: .02em; }
   .brand i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 8px; }
-  .nav-links { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  .nav-links { display: flex; gap: 20px; font-size: 14px; color: var(--muted); }
   .nav-links a { text-decoration: none; }
-  .nav-links a:hover { color: var(--fg); }
-  .kbd-btn {
-    font-family: var(--mono); font-size: 12px; color: var(--muted);
-    background: transparent; border: 1px solid var(--line); border-radius: 8px;
-    padding: 5px 10px; cursor: pointer;
-  }
+  .nav-links a:hover, .nav-links a.on { color: var(--fg); }
+  .kbd-btn { font-family: var(--mono); font-size: 12px; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; cursor: pointer; }
   .kbd-btn:hover { color: var(--fg); border-color: var(--muted); }
-  @media (max-width: 640px) { .nav-links { display: none; } }
+  @media (max-width: 720px) { .nav-links { display: none; } }
 
-  /* hero */
-  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  /* landing */
+  .hero { position: relative; min-height: calc(100vh - 57px); display: flex; align-items: center; border-bottom: 1px solid var(--line); overflow: hidden; }
   #field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .hero-inner { position: relative; padding: 110px 0 90px; pointer-events: none; }
+  .hero-inner { position: relative; width: 100%; padding: 60px 24px; pointer-events: none; }
   .hero-inner a, .hero-inner button { pointer-events: auto; }
   .eyebrow { font-family: var(--mono); font-size: 12.5px; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
-  h1 {
-    font-family: var(--serif); font-weight: 500; letter-spacing: -.02em;
-    font-size: clamp(44px, 8vw, 84px); line-height: 1.02; margin: 18px 0 20px;
-  }
+  h1 { font-family: var(--serif); font-weight: 500; letter-spacing: -.02em; font-size: clamp(44px, 8vw, 84px); line-height: 1.02; margin: 18px 0 20px; }
   .lede { font-size: clamp(17px, 2.2vw, 21px); color: var(--muted); max-width: 34em; margin: 0; }
   .lede b { color: var(--fg); font-weight: 500; }
-  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-  .btn {
-    font: inherit; font-size: 14px; text-decoration: none; cursor: pointer;
-    padding: 10px 18px; border-radius: 999px; border: 1px solid var(--fg);
-    background: var(--fg); color: var(--bg);
-  }
-  .btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
-  .btn.ghost:hover { border-color: var(--muted); }
-  .hint { position: absolute; right: 24px; bottom: 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
-  @media (max-width: 640px) { .hint { display: none; } .hero-inner { padding: 72px 0 60px; } }
+  .home-index { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 38px; font-family: var(--mono); font-size: 12.5px; }
+  .home-index a { text-decoration: none; color: var(--muted); }
+  .home-index a span { color: var(--accent); margin-right: 6px; }
+  .home-index a:hover { color: var(--fg); }
+  .hero-inner > * { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-inner > *:nth-child(2) { animation-delay: .08s; } .hero-inner > *:nth-child(3) { animation-delay: .16s; } .hero-inner > *:nth-child(4) { animation-delay: .24s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-  /* sections */
-  section { padding: 84px 0 8px; }
-  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; }
-  .sec-head span { font-family: var(--mono); font-size: 12px; color: var(--accent); }
-  h2 { font-family: var(--serif); font-weight: 500; font-size: 32px; letter-spacing: -.01em; margin: 0; }
+  /* section intro pages */
+  section { padding: 0; }
+  .intro { min-height: calc(100vh - 57px); display: flex; flex-direction: column; justify-content: center; padding: 40px 0; border-bottom: 1px solid var(--line); }
+  .intro .num { font-family: var(--mono); font-size: 12.5px; color: var(--accent); letter-spacing: .08em; }
+  .intro h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.02em; font-size: clamp(48px, 9vw, 96px); line-height: 1.02; margin: 14px 0 16px; }
+  .intro p { margin: 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); max-width: 30em; }
+  .intro .down { margin-top: 30px; font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; }
+  .intro .down:hover { color: var(--fg); }
+  .body { padding: 64px 0 90px; scroll-margin-top: 57px; }
+  .sub { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 20px; }
 
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 30px; }
-  .stat { background: var(--bg); padding: 20px; }
-  .stat b { display: block; font-family: var(--serif); font-size: 34px; font-weight: 500; line-height: 1.1; }
-  .stat small { color: var(--muted); font-size: 13px; }
+  /* journey: one continuous line that draws itself, with a character at its tip */
+  .journey { position: relative; padding-left: 112px; }
+  .stop { position: relative; --dy: 14px; }
+  .spine { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; z-index: 0; }
+  .spine .track { fill: none; stroke: var(--fg); opacity: .09; stroke-width: 1.3; }
+  .spine .ink { fill: none; stroke: var(--fg); opacity: .62; stroke-width: 1.7; stroke-linecap: round; }
+  .spine .blob { opacity: .07; filter: blur(6px); }
+  :root[data-theme="dark"] .spine .blob { opacity: .11; }
+  .walker { position: absolute; left: 0; top: 0; width: 64px; height: 78px; z-index: 2; pointer-events: none; will-change: transform; }
+  .walker svg { display: block; overflow: visible; }
+  .walker path { fill: none; stroke: var(--fg); stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+  .walker .acc { stroke: var(--accent); }
+  .walker .stagefade { animation: pop .45s ease-out; }
+  @keyframes pop { from { opacity: 0; } to { opacity: 1; } }
+  @media (max-width: 720px) { .journey { padding-left: 70px; } .walker { transform-origin: 0 0; } }
+  .tl-item { padding: 0 0 30px; }
+  .tl-item .when { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .tl-item h3 { margin: 2px 0 2px; font-size: 18px; font-weight: 500; }
+  .tl-item p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .tl-item p + p { margin-top: 4px; }
+  .tl-item.now h3::after { content: "now"; margin-left: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 8px; vertical-align: 2px; }
 
-  /* filters + pubs */
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-  .chip {
-    font: inherit; font-size: 13px; color: var(--muted); background: transparent;
-    border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; cursor: pointer;
-  }
-  .chip:hover { color: var(--fg); border-color: var(--muted); }
-  .chip[aria-pressed="true"] { color: var(--bg); background: var(--fg); border-color: var(--fg); }
-  .pub { border-top: 1px solid var(--line); padding: 18px 0; }
-  .pub:last-child { border-bottom: 1px solid var(--line); }
-  .pub[hidden] { display: none; }
-  .pub h3 { margin: 0 0 6px; font-size: 17px; font-weight: 500; line-height: 1.35; }
-  .pub .authors { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
-  .pub .authors b { color: var(--fg); font-weight: 600; }
-  .pub .venue { font-size: 14px; margin: 0; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; align-items: center; }
-  .tag { font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
-  .tag.award { background: var(--fg); color: var(--bg); }
-  .note { font-size: 12.5px; color: var(--muted); margin-top: 14px; }
+  /* DDF */
+  .ddf { position: relative; border: 1px solid var(--accent); border-radius: 18px; padding: 30px 30px 26px; margin-bottom: 56px; background: linear-gradient(135deg, var(--accent-soft), transparent 60%), color-mix(in srgb, var(--card) 90%, transparent); overflow: hidden; }
+  .ddf::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; border: 1px solid var(--accent); opacity: .3; box-shadow: 0 0 0 26px var(--accent-soft), 0 0 0 52px var(--accent-soft); pointer-events: none; }
+  .ddf .badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .ddf .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .ddf h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 4.4vw, 38px); letter-spacing: -.01em; margin: 12px 0 8px; line-height: 1.12; }
+  .ddf p { margin: 0; color: var(--muted); max-width: 34em; }
+  .ddf .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 20px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .ddf .meta b { color: var(--fg); font-weight: 500; }
 
-  /* timeline */
-  .tl { position: relative; margin: 0; padding: 0; list-style: none; }
-  .tl::before { content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
-  .tl li { position: relative; padding: 0 0 26px 32px; }
-  .tl li::before { content: ""; position: absolute; left: 0; top: 8px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--muted); }
-  .tl li.now::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
-  .tl .when { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-  .tl h3 { margin: 2px 0 2px; font-size: 17px; font-weight: 500; }
-  .tl p { margin: 0; color: var(--muted); font-size: 14.5px; }
-  .sub { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 34px 0 16px; }
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
-  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
-
-  /* recognition */
-  .awards { list-style: none; margin: 0; padding: 0; }
-  .awards li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
-  .awards li:last-child { border-bottom: 1px solid var(--line); }
-  .awards time { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
-  .awards strong { font-weight: 500; }
-  .awards span { display: block; color: var(--muted); font-size: 14px; }
-
-  /* stack */
-  .stack { display: grid; grid-template-columns: 140px 1fr; gap: 14px 20px; font-size: 15px; }
-  .stack dt { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding-top: 3px; }
-  .stack dd { margin: 0; }
-  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pill { font-size: 13.5px; border: 1px solid var(--line); border-radius: 8px; padding: 3px 10px; background: var(--card); }
-  @media (max-width: 600px) { .stack { grid-template-columns: 1fr; gap: 6px; } .stack dd { margin-bottom: 14px; } }
-
-  /* contact */
-  .contact { padding-bottom: 84px; }
-  .big-mail { font-family: var(--serif); font-size: clamp(26px, 5vw, 44px); letter-spacing: -.01em; text-decoration: none; border-bottom: 1px solid var(--line); }
-  .big-mail:hover { border-color: var(--accent); }
-  .links { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 26px; font-size: 15px; color: var(--muted); }
-  footer { border-top: 1px solid var(--line); padding: 22px 0 40px; font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
-
-  /* background graph */
-  #bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-  main, footer { position: relative; z-index: 1; }
-  :root { --c1: #0a8f6a; --c2: #d9822b; --c3: #6a5acd; }
-  :root[data-theme="dark"] { --c1: #40e0b0; --c2: #ffb45c; --c3: #9a8cff; }
-
-  /* current focus */
+  /* research */
   .focus { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 30px; }
   .focus-card { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 20px 20px 18px; background: color-mix(in srgb, var(--card) 88%, transparent); overflow: hidden; }
   .focus-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
@@ -167,21 +112,46 @@
   .focus-card h3 { font-family: var(--serif); font-weight: 500; font-size: 24px; margin: 6px 0 6px; }
   .focus-card p { margin: 0; color: var(--muted); font-size: 14.5px; }
   @media (max-width: 640px) { .focus { grid-template-columns: 1fr; } }
-
-  /* DDF highlight */
-  .ddf { position: relative; border: 1px solid var(--accent); border-radius: 18px; padding: 30px 30px 26px; background: linear-gradient(135deg, var(--accent-soft), transparent 60%), color-mix(in srgb, var(--card) 90%, transparent); overflow: hidden; }
-  .ddf::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; border: 1px solid var(--accent); opacity: .35; box-shadow: 0 0 0 26px var(--accent-soft), 0 0 0 52px var(--accent-soft); pointer-events: none; }
-  .ddf .badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-  .ddf .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-  .ddf h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 4.4vw, 38px); letter-spacing: -.01em; margin: 12px 0 8px; line-height: 1.12; }
-  .ddf p { margin: 0; color: var(--muted); max-width: 34em; }
-  .ddf .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 20px; font-family: var(--mono); font-size: 12.5px; }
-  .ddf .meta span b { color: var(--fg); font-weight: 500; }
-  .ddf .meta span { color: var(--muted); }
-
-  /* paper link */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 30px; }
+  .stat { background: var(--bg); padding: 20px; }
+  .stat b { display: block; font-family: var(--serif); font-size: 34px; font-weight: 500; line-height: 1.1; }
+  .stat small { color: var(--muted); font-size: 13px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip { font: inherit; font-size: 13px; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; cursor: pointer; }
+  .chip:hover { color: var(--fg); border-color: var(--muted); }
+  .chip[aria-pressed="true"] { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+  .pub { --dy: 30px; border-top: 1px solid var(--line); padding: 18px 0; }
+  .pub[hidden] { display: none; }
+  .pub h3 { margin: 0 0 6px; font-size: 17px; font-weight: 500; line-height: 1.35; }
+  .pub .authors { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+  .pub .authors b { color: var(--fg); font-weight: 600; }
+  .pub .venue { font-size: 14px; margin: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; align-items: center; }
+  .tag { font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+  .tag.award { background: var(--fg); color: var(--bg); }
   .plink { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 11px; padding: 2px 9px; border-radius: 6px; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; }
   .plink:hover { background: var(--accent); color: var(--bg); }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 14px; }
+
+  /* awards */
+  .award { --dy: 26px; display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .award time { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
+  .award strong { font-weight: 500; }
+  .award span { display: block; color: var(--muted); font-size: 14px; }
+
+  /* stack */
+  .stack { display: grid; grid-template-columns: 140px 1fr; gap: 14px 20px; font-size: 15px; }
+  .stack dt { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding-top: 3px; }
+  .stack dd { margin: 0; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { font-size: 13.5px; border: 1px solid var(--line); border-radius: 8px; padding: 3px 10px; background: color-mix(in srgb, var(--card) 90%, transparent); }
+  @media (max-width: 600px) { .stack { grid-template-columns: 1fr; gap: 6px; } .stack dd { margin-bottom: 14px; } }
+
+  /* contact */
+  .big-mail { font-family: var(--serif); font-size: clamp(26px, 5vw, 44px); letter-spacing: -.01em; text-decoration: none; border-bottom: 1px solid var(--line); word-break: break-all; }
+  .big-mail:hover { border-color: var(--accent); }
+  .links { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 26px; font-size: 15px; color: var(--muted); }
+  footer { border-top: 1px solid var(--line); padding: 22px 0 40px; font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
 
   /* palette */
   #palette { position: fixed; inset: 0; z-index: 50; display: none; align-items: flex-start; justify-content: center; padding-top: 14vh; background: rgba(0,0,0,.45); }
@@ -196,7 +166,7 @@
   .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: var(--fg); color: var(--bg); font-size: 13px; padding: 8px 14px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 60; }
   .toast.show { opacity: 1; }
 
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .hero-inner > * { animation: none; } .walker .stagefade { animation: none; } }
 </style>
 </head>
 <body>
@@ -205,8 +175,8 @@
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top"><i></i>diptarka.mandal</a>
-    <nav class="nav-links" aria-label="Sections">
-      <a href="#ddf">DDF</a>
+    <nav class="nav-links" id="navlinks" aria-label="Sections">
+      <a href="#building">Building</a>
       <a href="#research">Research</a>
       <a href="#path">Path</a>
       <a href="#recognition">Recognition</a>
@@ -218,99 +188,145 @@
 </header>
 
 <main id="top">
+
+  <!-- LANDING -->
   <div class="hero">
     <canvas id="field" aria-hidden="true"></canvas>
     <div class="wrap hero-inner">
       <div class="eyebrow">PhD scholar · Data Science · IIT Guwahati</div>
       <h1>Diptarka Mandal</h1>
       <p class="lede">Currently working on <b>multimodal reasoning</b> and <b>multimodal bias</b>. Before that, deep learning for <b>medical images</b> and <b>documents</b>, with detours into federated and quantum learning.</p>
-      <div class="hero-cta">
-        <a class="btn" href="#research">Read the research</a>
-        <a class="btn ghost" href="#contact">Get in touch</a>
-      </div>
+      <nav class="home-index" aria-label="Pages">
+        <a href="#building"><span>01</span>Building</a>
+        <a href="#research"><span>02</span>Research</a>
+        <a href="#path"><span>03</span>Path</a>
+        <a href="#recognition"><span>04</span>Recognition</a>
+        <a href="#stack"><span>05</span>Stack</a>
+        <a href="#contact"><span>06</span>Contact</a>
+      </nav>
     </div>
-    <div class="hint">move your cursor · press / for the palette</div>
   </div>
 
   <div class="wrap">
 
-    <section id="ddf">
-      <div class="sec-head"><span>01</span><h2>Building</h2></div>
-      <div class="ddf">
-        <div class="badge"><i></i>Co-founder &amp; Advisor</div>
-        <h3>Deep Duo Foundation</h3>
-        <p>I co-founded DDF and advise it. My responsibility is industry–academia collaboration.</p>
-        <div class="meta"><span>Role <b>Co-founder &amp; Advisor</b></span><span>Since <b>Feb 2024</b></span><span>Focus <b>Industry–academia collaboration</b></span></div>
+    <!-- 01 BUILDING -->
+    <section id="building">
+      <div class="intro">
+        <div class="num">01</div>
+        <h2>Building</h2>
+        <p>Deep Duo Foundation, and the work that led to it.</p>
+        <a class="down" href="#building-c">scroll ↓</a>
+      </div>
+      <div class="body" id="building-c">
+        <div class="ddf">
+          <div class="badge"><i></i>Co-founder &amp; Advisor</div>
+          <h3>Deep Duo Foundation</h3>
+          <p>I co-founded DDF and advise it. My responsibility is industry–academia collaboration.</p>
+          <div class="meta"><span>Role <b>Co-founder &amp; Advisor</b></span><span>Since <b>Feb 2024</b></span><span>Focus <b>Industry–academia collaboration</b></span></div>
+        </div>
+        <div class="sub">Work journey</div>
+        <div class="journey">
+          <div class="stop tl-item"><div class="when">Feb – Jul 2022</div><h3>Database Intern, Cognizant</h3><p>Large-scale dataset storage and manipulation with Hadoop; data analysis with PySpark.</p></div>
+          <div class="stop tl-item now"><div class="when">Feb 2024 – present</div><h3>Co-founder &amp; Advisor, Deep Duo Foundation</h3><p>Industry–academia collaboration.</p></div>
+          <div class="stop tl-item"><div class="when">Nov 2024 – Feb 2025</div><h3>Resource Person, NIELIT Kolkata</h3><p>Led multiple 30-hour sessions on AI/ML with Python.</p></div>
+        </div>
       </div>
     </section>
 
+    <!-- 02 RESEARCH -->
     <section id="research">
-      <div class="sec-head"><span>02</span><h2>Research</h2></div>
-      <div class="focus">
-        <div class="focus-card"><small>Current domain</small><h3>Multimodal reasoning</h3><p>How models combine text, images and other signals to reach conclusions.</p></div>
-        <div class="focus-card b"><small>Current domain</small><h3>Multimodal bias</h3><p>Where and why multimodal systems go wrong in unfair or skewed ways.</p></div>
+      <div class="intro">
+        <div class="num">02</div>
+        <h2>Research</h2>
+        <p>Multimodal reasoning and bias now; medical imaging before.</p>
+        <a class="down" href="#research-c">scroll ↓</a>
       </div>
-      <div class="stats">
-        <div class="stat"><b>9</b><small>accepted papers</small></div>
-        <div class="stat"><b>2nd</b><small>ICPR 2024 VISTAC challenge</small></div>
-        <div class="stat"><b>1 of 4500</b><small>KAVACH 2023 finalist teams</small></div>
+      <div class="body" id="research-c">
+        <div class="focus">
+          <div class="focus-card"><small>Current domain</small><h3>Multimodal reasoning</h3><p>How models combine text, images and other signals to reach conclusions.</p></div>
+          <div class="focus-card b"><small>Current domain</small><h3>Multimodal bias</h3><p>Where and why multimodal systems go wrong in unfair or skewed ways.</p></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>9</b><small>accepted papers</small></div>
+          <div class="stat"><b>2nd</b><small>ICPR 2024 VISTAC challenge</small></div>
+          <div class="stat"><b>1 of 4500</b><small>KAVACH 2023 finalist teams</small></div>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter publications"></div>
+        <div class="journey" id="pubs"></div>
+        <p class="note">∗ marks equal contribution, as listed on the CV. All entries have status: accepted.</p>
       </div>
-      <div class="filters" id="filters" role="group" aria-label="Filter publications"></div>
-      <div id="pubs"></div>
-      <p class="note">∗ marks equal contribution, as listed on the CV. All entries have status: accepted.</p>
     </section>
 
+    <!-- 03 PATH -->
     <section id="path">
-      <div class="sec-head"><span>03</span><h2>Path</h2></div>
-      <div class="cols">
-        <div>
-          <div class="sub" style="margin-top:0">Education</div>
-          <ol class="tl">
-            <li class="now"><div class="when">2025 – present</div><h3>PhD, Data Science</h3><p>Indian Institute of Technology, Guwahati<br>Score 9.00</p></li>
-            <li><div class="when">2022 – 2024</div><h3>M.Tech, Data Science</h3><p>Defence Institute of Advanced Technology<br>Score 7.72</p></li>
-            <li><div class="when">2018 – 2022</div><h3>B.Tech, Computer Science</h3><p>Jalpaiguri Govt. Engineering College<br>Score 7.60</p></li>
-          </ol>
-        </div>
-        <div>
-          <div class="sub" style="margin-top:0">Experience</div>
-          <ol class="tl">
-            <li class="now"><div class="when">Feb 2024 – present</div><h3><a href="#ddf">Co-founder &amp; Advisor, Deep Duo Foundation</a></h3><p>Industry–academia collaboration.</p></li>
-            <li><div class="when">Nov 2024 – Feb 2025</div><h3>Resource Person, NIELIT Kolkata</h3><p>Led multiple 30-hour sessions on AI/ML with Python.</p></li>
-            <li><div class="when">Feb – Jul 2022</div><h3>Database Intern, Cognizant</h3><p>Large-scale dataset storage and manipulation with Hadoop; data analysis with PySpark.</p></li>
-          </ol>
+      <div class="intro">
+        <div class="num">03</div>
+        <h2>Path</h2>
+        <p>From a B.Tech in Jalpaiguri to a PhD at IIT Guwahati.</p>
+        <a class="down" href="#path-c">scroll ↓</a>
+      </div>
+      <div class="body" id="path-c">
+        <div class="sub">Education &amp; campus life</div>
+        <div class="journey">
+          <div class="stop tl-item"><div class="when">2018 – 2022</div><h3>B.Tech, Computer Science</h3><p>Jalpaiguri Govt. Engineering College · Score 7.60</p><p>DSA, Automata, Operating Systems, DBMS, Discrete Math, Networking, Design and Analysis of Algorithms</p></div>
+          <div class="stop tl-item"><div class="when">Jan – Jun 2022</div><h3>Social Secretary, JECLAT'22</h3><p>Organised JECLAT, the largest socio-cultural fest of North Bengal.</p></div>
+          <div class="stop tl-item"><div class="when">2022 – 2024</div><h3>M.Tech, Data Science</h3><p>Defence Institute of Advanced Technology · Score 7.72</p><p>Optimization Techniques, Statistics, Machine Learning, Deep Learning, Computer Vision, Data Science Tools and Techniques</p></div>
+          <div class="stop tl-item"><div class="when">Jan – Apr 2023</div><h3>Finance Head, SPANDAN'23</h3><p>Handled finance for SPANDAN'23, the annual sports-cultural fest of MILIT and DIAT.</p></div>
+          <div class="stop tl-item now"><div class="when">2025 – present</div><h3>PhD, Data Science</h3><p>Indian Institute of Technology, Guwahati · Score 9.00</p><p>Machine Learning for Engineers, Recommendation Systems, Neuromorphic AI</p></div>
         </div>
       </div>
-      <div class="sub">Also</div>
-      <p style="margin:0;color:var(--muted);font-size:14.5px">Social Secretary, JECLAT'22 (the largest socio-cultural fest of North Bengal) · Finance Head, SPANDAN'23 (the annual sports-cultural fest of MILIT and DIAT)</p>
     </section>
 
+    <!-- 04 RECOGNITION -->
     <section id="recognition">
-      <div class="sec-head"><span>04</span><h2>Recognition</h2></div>
-      <ul class="awards">
-        <li><time>2026</time><div><strong>Student Grant</strong><span>IEEE Computer Society WEIGD Student Support Fund</span></div></li>
-        <li><time>2024</time><div><strong>Best Paper Award</strong><span>LEECAU-Net: microscopic medical image segmentation</span></div></li>
-        <li><time>2024</time><div><strong>First position, poster presentation</strong><span>IEEE CAS Kolkata Chapter, Dept. of ETCE, Jadavpur University</span></div></li>
-        <li><time>2024</time><div><strong>Second position, team HeisenbergVISTAC</strong><span>Challenge on Visual Tracking in Adverse Conditions, ICPR 2024</span></div></li>
-        <li><time>2023</time><div><strong>Finalist among 4500 teams nationwide</strong><span>KAVACH 2023 Hackathon: Fund Trail Analysis Tool (KVH012)</span></div></li>
-        <li><time>2021</time><div><strong>Cleared GATE</strong></div></li>
-        <li><time>2016</time><div><strong>14th rank, Secondary State Board Examination</strong></div></li>
-      </ul>
+      <div class="intro">
+        <div class="num">04</div>
+        <h2>Recognition</h2>
+        <p>Ranks, awards and grants, 2016 to 2026.</p>
+        <a class="down" href="#recognition-c">scroll ↓</a>
+      </div>
+      <div class="body" id="recognition-c">
+        <div class="journey">
+          <div class="stop award"><time>2016</time><div><strong>14th rank, Secondary State Board Examination</strong></div></div>
+          <div class="stop award"><time>2021</time><div><strong>Cleared GATE</strong></div></div>
+          <div class="stop award"><time>2023</time><div><strong>Finalist among 4500 teams nationwide</strong><span>KAVACH 2023 Hackathon: Fund Trail Analysis Tool (KVH012)</span></div></div>
+          <div class="stop award"><time>2024</time><div><strong>Second position, team HeisenbergVISTAC</strong><span>Challenge on Visual Tracking in Adverse Conditions, ICPR 2024</span></div></div>
+          <div class="stop award"><time>2024</time><div><strong>First position, poster presentation</strong><span>IEEE CAS Kolkata Chapter, Dept. of ETCE, Jadavpur University</span></div></div>
+          <div class="stop award"><time>2024</time><div><strong>Best Paper Award</strong><span>LEECAU-Net: microscopic medical image segmentation</span></div></div>
+          <div class="stop award"><time>2026</time><div><strong>Student Grant</strong><span>IEEE Computer Society WEIGD Student Support Fund</span></div></div>
+        </div>
+      </div>
     </section>
 
+    <!-- 05 STACK -->
     <section id="stack">
-      <div class="sec-head"><span>05</span><h2>Stack &amp; interests</h2></div>
-      <dl class="stack">
-        <dt>Languages</dt><dd class="pills"><span class="pill">Python</span><span class="pill">SQL</span><span class="pill">C</span><span class="pill">C++</span></dd>
-        <dt>Libraries</dt><dd class="pills"><span class="pill">PyTorch</span><span class="pill">TensorFlow</span><span class="pill">Keras</span><span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">SciPy</span><span class="pill">Seaborn</span><span class="pill">Matplotlib</span></dd>
-        <dt>Interests</dt><dd class="pills"><span class="pill">Multimodal reasoning</span><span class="pill">Multimodal bias</span><span class="pill">Medical imaging</span><span class="pill">Document layout analysis</span></dd>
-        <dt>Coursework</dt><dd class="pills"><span class="pill">Machine Learning for Engineers</span><span class="pill">Recommendation Systems</span><span class="pill">Neuromorphic AI</span><span class="pill">Optimization Techniques</span><span class="pill">Statistics</span><span class="pill">Deep Learning</span><span class="pill">Computer Vision</span><span class="pill">Design &amp; Analysis of Algorithms</span></dd>
-      </dl>
+      <div class="intro">
+        <div class="num">05</div>
+        <h2>Stack</h2>
+        <p>The tools I work with and what I'm curious about.</p>
+        <a class="down" href="#stack-c">scroll ↓</a>
+      </div>
+      <div class="body" id="stack-c">
+        <dl class="stack">
+          <dt>Languages</dt><dd class="pills"><span class="pill">Python</span><span class="pill">SQL</span><span class="pill">C</span><span class="pill">C++</span></dd>
+          <dt>Libraries</dt><dd class="pills"><span class="pill">PyTorch</span><span class="pill">TensorFlow</span><span class="pill">Keras</span><span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">SciPy</span><span class="pill">Seaborn</span><span class="pill">Matplotlib</span></dd>
+          <dt>Interests</dt><dd class="pills"><span class="pill">Multimodal reasoning</span><span class="pill">Multimodal bias</span><span class="pill">Medical imaging</span><span class="pill">Document layout analysis</span></dd>
+        </dl>
+      </div>
     </section>
 
-    <section id="contact" class="contact">
-      <div class="sec-head"><span>06</span><h2>Contact</h2></div>
-      <a class="big-mail" id="mail" href="mailto:m.diptarka@iitg.ac.in">m.diptarka@iitg.ac.in</a>
-      <div class="links" id="links"></div>
+    <!-- 06 CONTACT -->
+    <section id="contact">
+      <div class="intro">
+        <div class="num">06</div>
+        <h2>Contact</h2>
+        <p>Collaborations, questions, or just hello.</p>
+        <a class="down" href="#contact-c">scroll ↓</a>
+      </div>
+      <div class="body" id="contact-c">
+        <a class="big-mail" id="mail" href="mailto:m.diptarka@iitg.ac.in">m.diptarka@iitg.ac.in</a>
+        <div class="links" id="links"></div>
+      </div>
     </section>
 
   </div>
@@ -320,7 +336,7 @@
 
 <div id="palette" role="dialog" aria-modal="true" aria-label="Command palette">
   <div class="pal-box">
-    <input id="pal-input" type="text" placeholder="Jump to a section, filter papers, toggle theme..." autocomplete="off" aria-controls="pal-list">
+    <input id="pal-input" type="text" placeholder="Jump to a page, filter papers, toggle theme..." autocomplete="off" aria-controls="pal-list">
     <ul class="pal-list" id="pal-list" role="listbox"></ul>
   </div>
 </div>
@@ -330,8 +346,7 @@
 /* ---------- Content you may want to edit ---------- */
 const CONFIG = {
   email: "m.diptarka@iitg.ac.in",
-  // Add your profile links below; empty ones are hidden.
-  github: "",     // e.g. "https://github.com/yourusername"
+  github: "",     // e.g. "https://github.com/DiptAI"
   linkedin: "",   // e.g. "https://www.linkedin.com/in/yourname"
   scholar: ""     // e.g. "https://scholar.google.com/citations?user=..."
 };
@@ -370,22 +385,17 @@ const $ = (s, r = document) => r.querySelector(s);
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const root = document.documentElement;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-function toast(msg) {
-  const el = $("#toast"); el.textContent = msg; el.classList.add("show");
-  clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 1800);
-}
+function toast(msg) { const el = $("#toast"); el.textContent = msg; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 1800); }
 
 /* ---------- Theme ---------- */
 function setTheme(t, save) {
   root.setAttribute("data-theme", t);
   $('meta[name="theme-color"]').setAttribute("content", t === "dark" ? "#0b0b0c" : "#fafaf8");
   if (save) { try { localStorage.setItem("theme", t); } catch (e) {} }
-  readColors();
+  document.dispatchEvent(new Event("themechange"));
 }
-(function initTheme() {
-  let t = null;
-  try { t = localStorage.getItem("theme"); } catch (e) {}
+(function () {
+  let t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
   if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   root.setAttribute("data-theme", t);
 })();
@@ -394,14 +404,12 @@ const toggleTheme = () => setTheme(root.getAttribute("data-theme") === "dark" ? 
 /* ---------- Publications ---------- */
 let activeGroup = "all";
 function renderPubs() {
-  $("#pubs").innerHTML = PUBS.map(p => {
+  $("#pubs").insertAdjacentHTML("afterbegin", PUBS.map(p => {
     const authors = p.a.split(", ").map(n => n.replace("∗", "").trim() === ME ? `<b>${esc(n)}</b>` : esc(n)).join(", ");
     const tags = (p.u ? `<a class="plink" href="${esc(p.u)}" target="_blank" rel="noopener">Read paper ↗</a>` : "")
       + p.tag.map(x => `<span class="tag">${esc(x)}</span>`).join("") + (p.award ? `<span class="tag award">${esc(p.award)}</span>` : "");
-    return `<article class="pub" data-g="${p.g.join(" ")}">
-      <h3>${esc(p.t)}</h3><p class="authors">${authors}</p>
-      <p class="venue">${esc(p.v)}</p><div class="tags">${tags}</div></article>`;
-  }).join("");
+    return `<article class="pub stop" data-g="${p.g.join(" ")}"><h3>${esc(p.t)}</h3><p class="authors">${authors}</p><p class="venue">${esc(p.v)}</p><div class="tags">${tags}</div></article>`;
+  }).join(""));
 }
 function renderFilters() {
   $("#filters").innerHTML = GROUPS.map(g => `<button class="chip" data-g="${g.id}" aria-pressed="${g.id === activeGroup}">${g.label}</button>`).join("");
@@ -410,75 +418,212 @@ function applyFilter(id) {
   activeGroup = id;
   document.querySelectorAll(".pub").forEach(el => { el.hidden = !(id === "all" || el.dataset.g.split(" ").includes(id)); });
   document.querySelectorAll("#filters .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.g === id));
+  document.dispatchEvent(new Event("relayout"));
 }
 $("#filters").addEventListener("click", e => { const b = e.target.closest(".chip"); if (b) applyFilter(b.dataset.g); });
 renderPubs(); renderFilters();
 
-/* ---------- Links & footer ---------- */
 $("#yr").textContent = new Date().getFullYear();
 $("#links").innerHTML = [["GitHub", CONFIG.github], ["LinkedIn", CONFIG.linkedin], ["Google Scholar", CONFIG.scholar]]
   .filter(x => x[1]).map(x => `<a href="${esc(x[1])}" target="_blank" rel="noopener">${x[0]} ↗</a>`).join("");
 
-/* ---------- Hero: "segmentation mask" field ---------- */
-const canvas = $("#field"), ctx = canvas.getContext("2d");
-let W = 0, H = 0, dpr = 1, colDot, colAcc;
-const STEP = 22;
-const mouse = { x: -999, y: -999, active: false };
-const blobs = [
-  { x: .72, y: .35, r: 120, sx: .00031, sy: .00023, px: 0, py: 1 },
-  { x: .30, y: .70, r: 78, sx: .00025, sy: .00037, px: 2, py: 3 }
-];
-function readColors() {
-  const cs = getComputedStyle(root);
-  colDot = cs.getPropertyValue("--dot").trim(); colAcc = cs.getPropertyValue("--accent").trim();
-  if (canvas.width) draw(performance.now());
-}
-function resize() {
-  const r = canvas.parentElement.getBoundingClientRect();
-  dpr = Math.min(devicePixelRatio || 1, 2); W = r.width; H = r.height;
-  canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  draw(performance.now());
-}
-function draw(t) {
-  ctx.clearRect(0, 0, W, H);
-  const sources = blobs.map(b => ({
-    x: (b.x + Math.sin(t * b.sx + b.px) * .16) * W,
-    y: (b.y + Math.sin(t * b.sy + b.py) * .22) * H, r: b.r
-  }));
-  if (mouse.active) sources.push({ x: mouse.x, y: mouse.y, r: 95 });
-  for (let y = STEP / 2; y < H; y += STEP) {
-    for (let x = STEP / 2; x < W; x += STEP) {
-      let f = 0;
-      for (const s of sources) { const dx = x - s.x, dy = y - s.y; f += (s.r * s.r) / (dx * dx + dy * dy + 1); }
-      if (f > 1) { ctx.fillStyle = colAcc; ctx.globalAlpha = Math.min(.95, .45 + (f - 1) * .25); ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.283); ctx.fill(); }
-      else if (f > .72) { ctx.strokeStyle = colAcc; ctx.globalAlpha = .55; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(x, y, 3.6, 0, 6.283); ctx.stroke(); }
-      else { ctx.fillStyle = colDot; ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(x, y, 1.4, 0, 6.283); ctx.fill(); }
+/* ---------- Landing: a still dot grid that only lights up near the cursor ---------- */
+(function () {
+  const cv = $("#field"), c = cv.getContext("2d"), hero = cv.parentElement;
+  const STEP = 26, R = 150; let W = 0, H = 0, mx = -999, my = -999, raf = 0;
+  function draw() {
+    raf = 0; const cs = getComputedStyle(root), dot = cs.getPropertyValue("--dot").trim(), acc = cs.getPropertyValue("--accent").trim();
+    c.clearRect(0, 0, W, H);
+    for (let y = STEP / 2; y < H; y += STEP) for (let x = STEP / 2; x < W; x += STEP) {
+      const dx = x - mx, dy = y - my, d = Math.sqrt(dx * dx + dy * dy);
+      if (d < R) { const t = 1 - d / R; c.globalAlpha = .18 + t * .55; c.fillStyle = acc; c.beginPath(); c.arc(x, y, 1.4 + t * 2.2, 0, 6.283); c.fill(); }
+      else { c.globalAlpha = 1; c.fillStyle = dot; c.beginPath(); c.arc(x, y, 1.3, 0, 6.283); c.fill(); }
+    }
+    c.globalAlpha = 1;
+  }
+  const sched = () => { if (!raf) raf = requestAnimationFrame(draw); };
+  function size() { const r = hero.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; c.setTransform(d, 0, 0, d, 0, 0); sched(); }
+  hero.addEventListener("pointermove", e => { const r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; sched(); });
+  hero.addEventListener("pointerleave", () => { mx = my = -999; sched(); });
+  addEventListener("resize", size); document.addEventListener("themechange", sched); size();
+})();
+
+/* ---------- Page background: very faint, very slow ---------- */
+(function () {
+  const cv = $("#bg"), c = cv.getContext("2d");
+  let w = 0, h = 0, nodes = [], cols = [], k = 1, raf = 0, tick = 0;
+  const LINK = 150;
+  function palette() { const cs = getComputedStyle(root); cols = ["--c1", "--c2", "--c3"].map(v => cs.getPropertyValue(v).trim()); k = root.getAttribute("data-theme") === "dark" ? .55 : .8; if (reduceMotion) frame(); }
+  function build() {
+    const d = Math.min(devicePixelRatio || 1, 2); w = innerWidth; h = innerHeight;
+    cv.width = w * d; cv.height = h * d; c.setTransform(d, 0, 0, d, 0, 0);
+    const n = Math.round(Math.min(46, Math.max(18, (w * h) / 32000)));
+    nodes = Array.from({ length: n }, (_, i) => ({ x: Math.random() * w, y: Math.random() * h, k: i % 3, vx: (Math.random() - .5) * .1, vy: (Math.random() - .5) * .1, r: 1.4 + Math.random() * 1.2 }));
+  }
+  function frame() {
+    c.clearRect(0, 0, w, h);
+    for (const a of nodes) { a.x += a.vx; a.y += a.vy; if (a.x < -20) a.x = w + 20; else if (a.x > w + 20) a.x = -20; if (a.y < -20) a.y = h + 20; else if (a.y > h + 20) a.y = -20; }
+    c.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, dd = dx * dx + dy * dy;
+      if (dd < LINK * LINK) { const t = 1 - Math.sqrt(dd) / LINK; c.globalAlpha = t * (a.k !== b.k ? .11 : .05) * k; c.strokeStyle = cols[a.k]; c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); }
+    }
+    for (const a of nodes) { c.globalAlpha = .28 * k; c.fillStyle = cols[a.k]; c.beginPath(); c.arc(a.x, a.y, a.r, 0, 6.283); c.fill(); }
+    c.globalAlpha = 1;
+  }
+  function loop() { raf = requestAnimationFrame(loop); if ((tick++ & 1) === 0) frame(); }
+  function run() { cancelAnimationFrame(raf); if (reduceMotion) frame(); else loop(); }
+  addEventListener("resize", () => { build(); run(); });
+  document.addEventListener("visibilitychange", () => { document.hidden ? cancelAnimationFrame(raf) : run(); });
+  document.addEventListener("themechange", palette);
+  palette(); build(); run();
+})();
+
+/* ---------- Journeys: one continuous line that draws itself, with a character at its tip ----------
+   Inspired by one-line drawing: a single stroke snakes down each timeline, loops at every
+   milestone, and carries a small portrait of Diptarka that ages as the journey advances. */
+(function () {
+  const BASE = "M 6 74 C 10 64 17 58 24 54 C 14 48 9 34 16 23 C 23 12 41 11 48 20 C 52 26 51 32 49 36 C 48 38 47 38 47 39 C 46 41 52 45 51 47 C 50 49 46 49 44 49 C 45 51 45 53 43 54 C 42 57 39 59 35 59 C 31 60 27 58 25 56 C 26 62 28 66 30 70";
+  const GLASS = "M 33 33 a 4.4 3.5 0 1 0 8.8 0 a 4.4 3.5 0 1 0 -8.8 0 M 41.8 33 L 47 31 M 33 33 C 30 33 29 34 28 35";
+  const EYE = "M 38 33 C 40 31 43 31 45 33";
+  // Four ages of the same person, in the order a journey passes through them.
+  const STAGES = [
+    { id: "btech", hair: "M 16 24 l 4 -9 l 3 7 l 5 -10 l 3 8 l 5 -9 l 3 8 l 6 -6 l 2 7", extra: EYE },
+    { id: "mtech", hair: "M 15 26 C 19 14 36 8 48 17 C 51 19 52 23 51 26 C 45 18 28 16 21 25", extra: EYE },
+    { id: "phd",   hair: "M 15 26 C 19 13 37 7 49 17 C 52 19 53 23 52 27 C 46 18 28 16 21 25", extra: GLASS },
+    { id: "pro",   hair: "M 15 25 C 19 13 37 8 48 17 C 51 19 52 23 51 26 C 45 18 28 16 21 25", extra: GLASS,
+      collar: "M 24 54 C 22 61 20 68 19 75 M 31 68 C 35 73 40 73 44 68" }
+  ];
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const narrow = () => innerWidth <= 720;
+
+  const js = [...document.querySelectorAll(".journey")].map(root => {
+    const svg = el("svg", { class: "spine", "aria-hidden": "true" });
+    const blobs = el("g", { class: "blob" });
+    const track = el("path", { class: "track" });
+    const ink = el("path", { class: "ink" });
+    svg.append(blobs, track, ink);
+    root.appendChild(svg);
+
+    const wrap = document.createElement("div");
+    wrap.className = "walker"; wrap.setAttribute("aria-hidden", "true");
+    const csvg = el("svg", { viewBox: "0 0 64 78", width: "64", height: "78" });
+    const pBase = el("path", { d: BASE }), pHair = el("path", { class: "acc" }), pExtra = el("path", {}), pCollar = el("path", {});
+    csvg.append(pBase, pHair, pExtra, pCollar);
+    wrap.appendChild(csvg); root.appendChild(wrap);
+
+    return { root, svg, blobs, track, ink, wrap, csvg, pHair, pExtra, pCollar, len: 0, p: 0, target: 0, stage: -1 };
+  });
+
+  function spine(x, dots, h) {
+    let d = `M ${x} 0`, py = 0;
+    dots.forEach((y, i) => {
+      const s = i % 2 ? -1 : 1, my = py + (y - py) / 2, a = Math.min(20, Math.max(6, (y - py) / 6));
+      d += ` C ${x + a * s} ${my - 12}, ${x - a * s} ${my + 12}, ${x} ${y - 11}`;
+      d += ` c 11 -3 17 5 11 11 c -5 5 -13 2 -12 -5`;          // the loop at a milestone
+      d += ` C ${x - 6} ${y + 3}, ${x - 2} ${y + 7}, ${x} ${y + 13}`;
+      py = y + 13;
+    });
+    d += ` C ${x + 9} ${py + (h - py) * .4}, ${x - 9} ${py + (h - py) * .7}, ${x} ${h}`;
+    return d;
+  }
+
+  function layout() {
+    const w = narrow() ? 70 : 112, x = narrow() ? 24 : 44;
+    for (const j of js) {
+      const stops = [...j.root.querySelectorAll(".stop")].filter(s => s.offsetParent !== null);
+      const h = j.root.offsetHeight;
+      j.dots = stops.map(s => s.offsetTop + (parseFloat(getComputedStyle(s).getPropertyValue("--dy")) || 14));
+      if (!j.dots.length) { j.len = 0; continue; }
+      j.svg.setAttribute("width", w); j.svg.setAttribute("height", h);
+      j.svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      const d = spine(x, j.dots, h);
+      j.track.setAttribute("d", d); j.ink.setAttribute("d", d);
+      j.len = j.ink.getTotalLength();
+      j.ink.style.strokeDasharray = j.len;
+      j.blobs.innerHTML = "";
+      j.dots.forEach((y, i) => {
+        if (i % 2) return;
+        const c = el("circle", { cx: x - 4 + (i % 2 ? 16 : 0), cy: y - 10, r: 17 + (i % 3) * 6, fill: ["var(--c1)", "var(--c2)", "var(--c3)"][i % 3] });
+        j.blobs.appendChild(c);
+      });
+      j.cw = w; j.cx = x;
+      j.wrap.style.transform = ""; // reset before first measure
+      j.csvg.setAttribute("width", narrow() ? 44 : 64);
+      j.csvg.setAttribute("height", narrow() ? 54 : 78);
+    }
+    measure(true);
+  }
+
+  function measure(snap) {
+    const anchor = innerHeight * .52;
+    for (const j of js) {
+      if (!j.len) { j.wrap.style.display = "none"; continue; }
+      j.wrap.style.display = "";
+      const top = j.root.getBoundingClientRect().top;
+      const y0 = top + j.dots[0], y1 = top + j.dots[j.dots.length - 1];
+      j.target = y1 > y0 ? Math.min(1, Math.max(0, (anchor - y0) / (y1 - y0))) : 1;
+      if (snap || reduceMotion) j.p = j.target;
+    }
+    kick();
+  }
+
+  function paint(j) {
+    const len = j.len, drawn = Math.max(6, len * (0.06 + j.p * 0.94));
+    j.ink.style.strokeDashoffset = len - drawn;
+    const pt = j.ink.getPointAtLength(drawn);
+    const sc = narrow() ? .7 : 1;
+    j.wrap.style.transform = `translate(${(pt.x - 32 * sc).toFixed(1)}px, ${(pt.y - 70 * sc).toFixed(1)}px)`;
+    const si = Math.min(STAGES.length - 1, Math.floor(j.p * STAGES.length * .999));
+    if (si !== j.stage) {
+      j.stage = si; const s = STAGES[si];
+      j.pHair.setAttribute("d", s.hair);
+      j.pExtra.setAttribute("d", s.extra || "");
+      j.pCollar.setAttribute("d", s.collar || "");
+      j.csvg.classList.remove("stagefade"); void j.csvg.offsetWidth; j.csvg.classList.add("stagefade");
     }
   }
-  ctx.globalAlpha = 1;
-}
-let running = false, visible = true;
-function loop(t) { if (!running) return; draw(t); requestAnimationFrame(loop); }
-function start() { if (!running && visible && !reduceMotion) { running = true; requestAnimationFrame(loop); } }
-function stop() { running = false; }
-const hero = canvas.parentElement;
-hero.addEventListener("pointermove", e => { const r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = true; if (reduceMotion) draw(performance.now()); });
-hero.addEventListener("pointerleave", () => { mouse.active = false; if (reduceMotion) draw(performance.now()); });
-new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(hero);
-addEventListener("resize", resize);
-readColors(); resize(); start();
+
+  let raf = 0;
+  function kick() { if (!raf) raf = requestAnimationFrame(step); }
+  function step() {
+    raf = 0; let again = false;
+    for (const j of js) {
+      if (!j.len) continue;
+      const diff = j.target - j.p;
+      if (Math.abs(diff) > .0015 && !reduceMotion) { j.p += diff * .13; again = true; } else j.p = j.target;
+      paint(j);
+    }
+    if (again) raf = requestAnimationFrame(step);
+  }
+
+  addEventListener("scroll", () => measure(false), { passive: true });
+  addEventListener("resize", layout);
+  document.addEventListener("relayout", layout);
+  addEventListener("load", layout);
+  layout();
+})();
+
+/* ---------- Nav highlight ---------- */
+(function () {
+  const links = [...document.querySelectorAll("#navlinks a")];
+  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }); }, { rootMargin: "-45% 0px -50% 0px" });
+  links.forEach(a => { const s = document.querySelector(a.getAttribute("href")); if (s) io.observe(s); });
+})();
 
 /* ---------- Command palette ---------- */
 const pal = $("#palette"), input = $("#pal-input"), list = $("#pal-list");
 const go = id => () => { document.getElementById(id).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); };
-const filterCmd = (id, label) => ({ label: "Papers: " + label, hint: "filter", run: () => { applyFilter(id); go("research")(); } });
+const filterCmd = (id, label) => ({ label: "Papers: " + label, hint: "filter", run: () => { applyFilter(id); go("research-c")(); } });
 const COMMANDS = [
-  { label: "Go to Deep Duo Foundation", hint: "section", run: go("ddf") },
-  { label: "Go to Research", hint: "section", run: go("research") },
-  { label: "Go to Path (education & experience)", hint: "section", run: go("path") },
-  { label: "Go to Recognition", hint: "section", run: go("recognition") },
-  { label: "Go to Stack & interests", hint: "section", run: go("stack") },
-  { label: "Go to Contact", hint: "section", run: go("contact") },
+  { label: "Go to Home", hint: "page", run: go("top") },
+  { label: "Go to Building (Deep Duo Foundation)", hint: "page", run: go("building") },
+  { label: "Go to Research", hint: "page", run: go("research") },
+  { label: "Go to Path (education)", hint: "page", run: go("path") },
+  { label: "Go to Recognition", hint: "page", run: go("recognition") },
+  { label: "Go to Stack", hint: "page", run: go("stack") },
+  { label: "Go to Contact", hint: "page", run: go("contact") },
   ...GROUPS.map(g => filterCmd(g.id, g.label)),
   { label: "Toggle light / dark theme", hint: "theme", run: toggleTheme },
   { label: "Copy email address", hint: "action", run: () => { navigator.clipboard && navigator.clipboard.writeText(CONFIG.email).then(() => toast("Email copied"), () => toast(CONFIG.email)); } },
@@ -486,7 +631,7 @@ const COMMANDS = [
   ...[["GitHub", CONFIG.github], ["LinkedIn", CONFIG.linkedin], ["Google Scholar", CONFIG.scholar]].filter(x => x[1]).map(x => ({ label: "Open " + x[0], hint: "link", run: () => window.open(x[1], "_blank", "noopener") }))
 ];
 let shown = [], sel = 0;
-function score(q, s) { q = q.toLowerCase(); s = s.toLowerCase(); if (s.includes(q)) return 2; let i = 0; for (const c of s) if (c === q[i]) i++; return i === q.length ? 1 : 0; }
+function score(q, s) { q = q.toLowerCase(); s = s.toLowerCase(); if (s.includes(q)) return 2; let i = 0; for (const ch of s) if (ch === q[i]) i++; return i === q.length ? 1 : 0; }
 function renderPal() {
   const q = input.value.trim();
   shown = q ? COMMANDS.map(c => [score(q, c.label), c]).filter(x => x[0]).sort((a, b) => b[0] - a[0]).map(x => x[1]) : COMMANDS;
@@ -513,59 +658,6 @@ addEventListener("keydown", e => {
   else if (e.key === "Escape") closePal();
 });
 if (/Mac|iPhone|iPad/.test(navigator.platform)) $("#open-palette").textContent = "⌘ K";
-
-/* ---------- Page background: drifting "modality graph" ----------
-   Three node families (vision / language / audio) drift and link up when close.
-   Links between different families are drawn brighter: a nod to multimodal fusion. */
-(function () {
-  const cv = $("#bg"), c = cv.getContext("2d");
-  let w = 0, h = 0, d = 1, nodes = [], cols = [];
-  const ptr = { x: -9999, y: -9999 };
-  const LINK = 130;
-  function palette() { const cs = getComputedStyle(root); cols = ["--c1", "--c2", "--c3"].map(v => cs.getPropertyValue(v).trim()); }
-  function build() {
-    d = Math.min(devicePixelRatio || 1, 2); w = innerWidth; h = innerHeight;
-    cv.width = w * d; cv.height = h * d; c.setTransform(d, 0, 0, d, 0, 0);
-    const n = Math.round(Math.min(90, Math.max(28, (w * h) / 16000)));
-    nodes = Array.from({ length: n }, (_, i) => ({
-      x: Math.random() * w, y: Math.random() * h, k: i % 3,
-      vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: 1.6 + Math.random() * 1.8
-    }));
-  }
-  function frame() {
-    c.clearRect(0, 0, w, h);
-    for (const a of nodes) {
-      a.x += a.vx; a.y += a.vy;
-      if (a.x < -20) a.x = w + 20; else if (a.x > w + 20) a.x = -20;
-      if (a.y < -20) a.y = h + 20; else if (a.y > h + 20) a.y = -20;
-      const dx = a.x - ptr.x, dy = a.y - ptr.y, dd = dx * dx + dy * dy;
-      if (dd < 14000) { const f = (1 - dd / 14000) * .6; a.x += dx * f * .02; a.y += dy * f * .02; }
-    }
-    c.lineWidth = 1;
-    for (let i = 0; i < nodes.length; i++) {
-      const a = nodes[i];
-      for (let j = i + 1; j < nodes.length; j++) {
-        const b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, dd = dx * dx + dy * dy;
-        if (dd < LINK * LINK) {
-          const t = 1 - Math.sqrt(dd) / LINK, cross = a.k !== b.k;
-          c.globalAlpha = t * (cross ? .34 : .13);
-          c.strokeStyle = cross ? cols[a.k] : cols[a.k];
-          c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
-        }
-      }
-    }
-    for (const a of nodes) { c.globalAlpha = .75; c.fillStyle = cols[a.k]; c.beginPath(); c.arc(a.x, a.y, a.r, 0, 6.283); c.fill(); }
-    c.globalAlpha = 1;
-  }
-  let raf = 0;
-  function loop() { frame(); raf = requestAnimationFrame(loop); }
-  function run() { cancelAnimationFrame(raf); if (reduceMotion) frame(); else loop(); }
-  addEventListener("pointermove", e => { ptr.x = e.clientX; ptr.y = e.clientY; }, { passive: true });
-  addEventListener("resize", () => { build(); palette(); run(); });
-  document.addEventListener("visibilitychange", () => { document.hidden ? cancelAnimationFrame(raf) : run(); });
-  new MutationObserver(() => { palette(); if (reduceMotion) frame(); }).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-  palette(); build(); run();
-})();
 </script>
 </body>
 </html>
